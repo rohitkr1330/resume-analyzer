@@ -70,3 +70,5 @@ Contributing
 Issues and pull requests are welcome.
 ![image alt](https://github.com/rohitkr1330/resume-analyzer/blob/0abc164752b676031ac243a4e892f3d4d018bff3/screenshot1.png)
 ![image alt](https://github.com/rohitkr1330/resume-analyzer/blob/f2687944a4aa625f6ca5bef90b012df42b284842/screenshot2.png)
+![image alt](https://github.com/rohitkr1330/resume-analyzer/blob/ef1e5e0c8527240c21b5dababac4b19d02a436c7/screenshot3.png)
+
