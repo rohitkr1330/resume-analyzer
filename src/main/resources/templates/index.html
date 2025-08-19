@@ -1,0 +1,86 @@
+<!DOCTYPE html> <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head> <meta charset="UTF-8">
+<title>Resume Analyzer</title> 
+<style> 
+body{font-family:Inter,system-ui,Arial;margin:24px;color:#1f2937;background:#fafafa} 
+h1{margin-bottom:8px} 
+.sub{color:#6b7280;margin-bottom:16px} 
+.row{display:flex;gap:16px;flex-wrap:wrap} 
+.col{flex:1;min-width:340px} 
+.card{border:1px solid #e5e7eb;border-radius:8px;padding:16px;background:#fff} 
+textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:6px;font-family:inherit} 
+input[type=file]{margin-top:8px} 
+button{background:#2563eb;color:#fff;border:none;padding:10px 14px;border-radius:6px;cursor:pointer} 
+button:hover{background:#1d4ed8} 
+.muted{color:#6b7280} .badges{display:flex;flex-wrap:wrap;gap:8px} 
+.badge{background:#eef2ff;color:#3730a3;border:1px solid #c7d2fe;padding:4px 8px;border-radius:999px;font-size:13px} 
+.badge-warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412} 
+.badge-neutral{background:#f1f5f9;border:1px solid #cbd5e1;color:#334155} 
+.score{margin-top:12px} .bar{height:10px;background:#e5e7eb;border-radius:6px;overflow:hidden} 
+.bar > span{display:block;height:100%;background:#10b981} 
+.section-title{margin-top:10px;margin-bottom:6px;font-weight:600} 
+</style> 
+</head> 
+<body> 
+    <h1>Welcome to the Resume Analyzer!</h1> 
+    <div class="sub">Upload a resume (PDF) and paste a job description to get a match score and suggestions.</div> 
+    <div class="row"> 
+        <div class="col"> 
+            <div class="card"> 
+                <form method="POST" action="/upload" enctype="multipart/form-data"> 
+                    <label><b>Resume (PDF)</b></label><br/> 
+                    <input type="file" name="file" accept="application/pdf"/>
+
+        <div style="height:12px"></div>
+      <label><b>Job Description</b></label>
+      <textarea name="jobDescription" rows="8" placeholder="Paste job description here"></textarea>
+
+      <div style="height:12px"></div>
+      <button type="submit">Analyze</button>
+    </form>
+
+    <div th:if="${message}" class="muted" style="margin-top:12px" th:text="${message}"></div>
+  </div>
+</div>
+
+<div class="col">
+  <div class="card">
+    <h3>Analysis Results</h3>
+
+    <div th:if="${foundKeywords}">
+      <div class="section-title">Found Keywords</div>
+      <div class="badges">
+        <span th:each="k : ${foundKeywords}" th:text="${k}" class="badge"></span>
+      </div>
+
+      <div class="score">
+        <div class="muted">Match Score</div>
+        <div class="bar"><span th:style="'width:'+${score}+'%'"></span></div>
+        <div><b th:text="${score} + '%'"></b>
+          <span class="muted" th:if="${jdCount != null}">
+            (<span th:text="${foundCount}"></span>/<span th:text="${jdCount}"></span> keywords matched)
+          </span>
+        </div>
+      </div>
+
+      <div th:if="${missingKeywords}">
+        <div class="section-title">Suggested To Add</div>
+        <div class="badges">
+          <span th:each="m : ${missingKeywords}" th:text="${m}" class="badge badge-warn"></span>
+        </div>
+      </div>
+
+      <div th:if="${noiseKeywords}">
+        <div class="section-title">Possibly Irrelevant</div>
+        <div class="badges">
+          <span th:each="n : ${noiseKeywords}" th:text="${n}" class="badge badge-neutral"></span>
+        </div>
+      </div>
+    </div>
+
+    <div th:if="${foundKeywords == null}" class="muted">Run an analysis to see results here.</div>
+  </div>
+</div>
+</div> 
+</body> 
+</html>
