@@ -68,3 +68,4 @@ Notes
 
 Contributing
 Issues and pull requests are welcome.
+![image alt](https://github.com/rohitkr1330/resume-analyzer/blob/0abc164752b676031ac243a4e892f3d4d018bff3/screenshot1.png)
